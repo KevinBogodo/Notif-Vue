@@ -7,17 +7,16 @@
                     <div class="contactus">
                         <form method="POST" action="">
 
-                             <input class="inp-login" type="Email" 
-                            placeholder="Email" required name="email" autofocus>
+                             <input class="inp-login" type="Email" v-model="email" placeholder="Email" required name="email" autofocus>
 
-                            <input class="inp-login" type="password" placeholder="Enter Pasword" 
+                            <input class="inp-login" type="password" v-model="password" placeholder="Enter Pasword" 
                             required name="password" autocomplete="current-password">
 
                                 <p  class="danger">
                                     Incorect Email or password.
                                 </p>
 
-                                <button  class="button-login" type="button">
+                                <button  class="button-login" :class="{'button--disabled' : !validatedFields}" type="button">
                                   
                                    <span >Log in</span> 
                                 </button>
@@ -31,7 +30,26 @@
      </div>
 </template>
 
+
+<script>
+    export default {
+      name: 'login',
+      data() {
+        return {
+          mode: 'login',
+          email: '',
+          password: '',
+        }
+      },
+      methods() {
+
+      }
+    }
+</script>
+
+
 <style>
+
 .login{
   width: 100%;
   height: 100%;
@@ -98,6 +116,10 @@ text-align: center;
   border: none;
   transition: .2s ;
   transform: scale(0.9);
+}
+.button-disabled {
+  transform: scale(0.9);
+  background: #787879;
 }
 .button-login:hover{
   background: #1b93b8;
