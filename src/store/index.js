@@ -38,6 +38,22 @@ const store = createStore({
             surname: '',
             email: ''
         },
+        items: [],
+        notifInfos: {
+            id: '',
+            title: '',
+            content: '',
+            read: '',
+        },
+    },
+    // add getter
+    getters: {
+        getNotifs(state) {
+            return state.notif;
+        },
+        items: state => {
+            return state.items;
+        }
     },
     mutations: {
         setStatus(state, status) {
@@ -60,6 +76,9 @@ const store = createStore({
                 token: '',
             }
             localStorage.removeItem('user');
+        },
+        SET_notifInfos (state, notifInfos) {
+            state.notifInfos = notifInfos
         }
     },
     actions: {
@@ -89,6 +108,14 @@ const store = createStore({
             .catch(function(){
             });
           
+        },
+        loadNotifs ({ commit }) {
+            instance.get('/notifications')
+                .then(response => response.data)
+                .then(notifInfos => {
+                    console.log(notifInfos);
+                commit('SET_notifInfos', notifInfos)
+            })
         }
     }
 })

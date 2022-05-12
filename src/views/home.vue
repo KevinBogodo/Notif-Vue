@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <Navbar />
+        <ListNotif />
     </div>
 </template>
 
@@ -9,7 +10,5 @@
 
 </script>
 <style>
-.container {
 
-}
 </style>
