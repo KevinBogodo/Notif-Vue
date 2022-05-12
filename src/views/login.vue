@@ -16,7 +16,7 @@
                                     Incorect Email or password.
                                 </p>
 
-                                <button  class="button-login" :class="{'button--disabled' : !validatedFields}" type="button">
+                                <button :class="{'button-disabled' : !validatedFields}" class="button-login"  type="button">
                                   
                                    <span >Log in</span> 
                                 </button>
@@ -41,8 +41,15 @@
           password: '',
         }
       },
-      methods() {
-
+      computed: {
+        validatedFields() {
+            if(this.email != "" && this.password != ""){
+              return true;
+            }
+            else {
+              return false
+            }
+        }
       }
     }
 </script>
