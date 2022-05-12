@@ -12,13 +12,13 @@
                             <input class="inp-login" type="password" v-model="password" placeholder="Enter Pasword" 
                             required name="password" autocomplete="current-password">
 
-                                <p  class="danger">
+                                <p v-if="mode == 'login' && status == 'error_login' " class="danger">
                                     Incorect Email or password.
                                 </p>
 
-                                <button :class="{'button-disabled' : !validatedFields}" class="button-login"  type="button">
-                                  
-                                   <span >Log in</span> 
+                                <button @click="login()" :class="{'button-disabled' : !validatedFields}" class="button-login"  type="button">
+                                   <span v-if="status == 'loading'" >In progress...</span>
+                                   <span v-else>Log in</span>  
                                 </button>
                         
                            
@@ -32,6 +32,7 @@
 
 
 <script>
+import { mapState } from "vuex";
     export default {
       name: 'login',
       data() {
@@ -39,6 +40,12 @@
           mode: 'login',
           email: '',
           password: '',
+        }
+      },
+      mounted: function () {
+            if(this.$store.state.user.userId !== -1){
+               this.$router.push('/home');
+            return;
         }
       },
       computed: {
@@ -49,7 +56,21 @@
             else {
               return false
             }
-        }
+        },
+        ...mapState(['status'])
+      },
+      methods: {
+         login: function () {
+                const self = this;
+                 this.$store.dispatch('login',{
+                   email: this.email,
+                   password: this.password,
+                }).then(function (){
+                    self.$router.push('/home')
+               }, function (error) {
+                    console.log(error);
+               })
+            },
       }
     }
 </script>

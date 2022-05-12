@@ -1,5 +1,15 @@
 <template>
-    <div>
-        <h1>Home</h1>
+    <div class="container">
+        <Navbar />
     </div>
 </template>
+
+
+<script>
+
+</script>
+<style>
+.container {
+
+}
+</style>
