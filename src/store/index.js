@@ -38,7 +38,7 @@ const store = createStore({
             surname: '',
             email: ''
         },
-        items: [],
+        currentNotif: {},
         notifInfos: {
             id: '',
             title: '',
@@ -49,11 +49,14 @@ const store = createStore({
     // add getter
     getters: {
         getNotifs(state) {
-            return state.notif;
+            return state.notifInfos;
         },
-        items: state => {
-            return state.items;
-        }
+       getCurrentNotifs(state) {
+           return state.currentNotif;
+       },
+       items: state => {
+        return state.items;
+    }
     },
     mutations: {
         setStatus(state, status) {
@@ -79,6 +82,9 @@ const store = createStore({
         },
         SET_notifInfos (state, notifInfos) {
             state.notifInfos = notifInfos
+        },
+        SET_CurrentNotifs (state, currentNotifs) {
+            state.items = currentNotifs
         }
     },
     actions: {
@@ -115,6 +121,14 @@ const store = createStore({
                 .then(notifInfos => {
                     console.log(notifInfos);
                 commit('SET_notifInfos', notifInfos)
+            })
+        },
+        ViewNotif ({ commit }) {
+            instance.get('/notification/3')
+                .then(response => response.data)
+                .then(currentNotifs => {
+                    console.log(currentNotifs);
+                commit('SET_Items', currentNotifs)
             })
         }
     }

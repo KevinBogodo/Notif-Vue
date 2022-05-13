@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import Login from '/src/views/Login.vue'
 import Home from '/src/views/Home.vue'
+import Notif from '/src/views/Notif.vue'
 import NotFound from '/src/views/NotFound.vue'
 
 
@@ -13,6 +14,15 @@ const routes= [
         component: Login,
         meta: {
             title: 'Login',
+        }
+    },
+    {
+        name: 'Notif',
+        path:'/Notification',
+        component: Notif,
+        meta: {
+            title: 'Read notifications',
+            header: 1,
         }
     },
     {

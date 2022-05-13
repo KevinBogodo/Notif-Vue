@@ -1,20 +1,31 @@
 <template>
+<div>
+
     <div class="navbar">
         <div class="left">
             <h1>Navbar</h1>
         </div>
         <div class="right">
             <h4> {{user.nom}} </h4>
-            <h4><span>35</span></h4>
+            <h4 @click="isShow = !isShow"><span>{{notifInfos.length}} </span></h4>
             <h4 @click="logout()">Logout</h4>
         </div> 
     </div>
+    <div v-show="isShow">
+        <ListNotif />
+    </div>
+</div>
 </template>
 
 <script>
 import { mapState } from "vuex";
     export default {
-       mounted: function () {
+        data: function () {
+        return {
+        isShow: false,
+        };
+    },
+    mounted: function () {
         console.log(this.$store.state.user);
         // check if connected
         if(this.$store.state.user.userId == -1){
@@ -22,10 +33,12 @@ import { mapState } from "vuex";
             return;
         }
         this.$store.dispatch('getUserInfos');
+        
     },
     computed: {
         ...mapState({
             user: 'userInfos',
+            notifInfos: 'notifInfos',
         })
     },
     methods: {

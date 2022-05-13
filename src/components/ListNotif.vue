@@ -1,11 +1,14 @@
 <template>
     <div>
-        <h1> Notification</h1>
+        <h1> Notification list</h1>
         <div v-for="notifInfos in notifInfos" :key="notifInfos.id">
-            <p> {{notifInfos.read}} </p>
-            <p> {{notifInfos.lenght}} </p>
+            <div :class="{'danger' : notifInfos.read === 0}">
+                <router-link :to="{name: 'Notif', params : { id : notifInfos.id}}" >
+                    <p class="notif"> {{notifInfos.title}} </p>
+                </router-link>
+            </div>
+            
         </div>
-         <p> {{notifInfos.length}} </p>
     </div>
 </template>
 
@@ -15,22 +18,33 @@ import { mapState } from "vuex";
     export default {
         data() {
         return {
-          count: '',
+          
         }
       },
      computed: mapState([
         'notifInfos'
-    ]),
-    mounted () {
-        this.$store.dispatch('loadNotifs');
-    },
-    
-    methods: {
-        logout() {
-            this.$store.commit('logout');
-            this.$router.push('/');
+        ]),
+        mounted () {
+            this.$store.dispatch('loadNotifs');
+        },
+        
+        methods: {
+            logout() {
+                this.$store.commit('logout');
+                this.$router.push('/');
+            }
         }
-    }
     }
 
 </script>
+<style>
+.notif {
+    cursor: pointer;
+    width: 45%;
+    display: flex;
+}
+.danger {
+    background: #1b93b8;
+    color: white;
+}
+</style>
